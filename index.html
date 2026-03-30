@@ -1,188 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Venkat | AI & D365FO</title>
-   <style>
-    * {
-      scroll-behavior: smooth;
-    }
+  <meta name="description" content="Venkateswarrao Vamkathula — D365 F&O Technical Architect & Agentic AI Expert. Microsoft MVP Aspirant 2027."/>
+  <meta name="keywords" content="D365 F&O, X++, Agentic AI, LangGraph, Copilot Studio, Microsoft MVP, Dynamics 365 Finance Operations"/>
+  <meta name="author" content="Venkateswarrao Vamkathula"/>
+  <meta property="og:title" content="Venkateswarrao Vamkathula — D365 F&O + Agentic AI"/>
+  <meta property="og:description" content="Technical articles on D365 F&O, X++ development, and Agentic AI for enterprise ERP."/>
+  <meta property="og:url" content="https://venkateswarrao-ai.github.io"/>
+  <title>Venkateswarrao Vamkathula — D365 F&O + Agentic AI</title>
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+/* ── MICROSOFT FLUENT DESIGN SYSTEM ── */
+:root {
+  --ms-blue:       #0078d4;
+  --ms-blue-d:     #005a9e;
+  --ms-blue-dd:    #004578;
+  --ms-blue-l:     #deecf9;
+  --ms-blue-xl:    #eff6fc;
+  --ms-neutral-0:  #ffffff;
+  --ms-neutral-2:  #faf9f8;
+  --ms-neutral-4:  #f3f2f1;
+  --ms-neutral-6:  #edebe9;
+  --ms-neutral-8:  #e1dfdd;
+  --ms-neutral-30: #c8c6c4;
+  --ms-neutral-60: #605e5c;
+  --ms-neutral-80: #3b3a39;
+  --ms-neutral-90: #201f1e;
+  --ms-gold:       #ffb900;
+  --ms-gold-d:     #986f0b;
+  --ms-gold-l:     #fff4ce;
+  --ms-green:      #107c10;
+  --ms-green-l:    #dff6dd;
+  --ms-red:        #d13438;
+  --ms-red-l:      #fde7e9;
+  --ms-purple:     #5c2d91;
+  --ms-purple-l:   #f4f0f8;
+  --shadow-2:      0 0 2px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.14);
+  --shadow-4:      0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.14);
+  --shadow-8:      0 0 2px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.14);
+  --shadow-16:     0 0 2px rgba(0,0,0,.12), 0 8px 16px rgba(0,0,0,.14);
+  --radius-2:      2px;
+  --radius-4:      4px;
+  --radius-6:      6px;
+}
 
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #ffffff;
-    }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 14px; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--ms-neutral-4);
+  color: var(--ms-neutral-90);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
 
-    nav {
-      position: sticky;
-      top: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      padding: 15px 0;
-      z-index: 100;
-    }
+/* ── TOPBAR (Microsoft branded) ── */
+.topbar {
+  background: var(--ms-blue-dd);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 16px;
+  position: sticky; top: 0; z-index: 200;
+}
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      margin: 0;
-      padding: 0;
-    }
+.topbar-brand {
+  color: white; font-size: 15px; font-weight: 600;
+  text-decoration: none; letter-spacing: .01em;
+}
+.topbar-nav {
+  display: flex; gap: 2px; margin-left: auto;
+}
+.topbar-nav a {
+  color: rgba(255,255,255,.85); font-size: 13px; font-weight: 400;
+  text-decoration: none; padding: 6px 12px; border-radius: var(--radius-4);
+  transition: background .1s;
+}
+.topbar-nav a:hover { background: rgba(255,255,255,.12); color: white; }
+.topbar-rss {
+  background: rgba(255,185,0,.2) !important;
+  border: 1px solid rgba(255,185,0,.35) !important;
+  color: var(--ms-gold) !important; font-size: 11px !important;
+  font-weight: 600 !important;
+}
 
-    nav li {
-      margin: 0 15px;
-    }
+/* ── HERO BANNER ── */
+.hero {
+  background: linear-gradient(135deg, var(--ms-blue-dd) 0%, var(--ms-blue) 60%, #1a8cff 100%);
+  padding: 60px 20px 52px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: 'D365'; position: absolute; right: -20px; bottom: -30px;
+  font-size: 180px; font-weight: 700;
+  color: rgba(255,255,255,.04); line-height: 1; pointer-events: none;
+  font-family: 'Segoe UI', sans-serif;
+}
+.hero-inner { max-width: 960px; margin: 0 auto; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.9); font-size: 12px; font-weight: 600;
+  padding: 4px 14px; border-radius: 12px; margin-bottom: 20px;
+  letter-spacing: .04em;
+}
+.hero-eyebrow::before { content: '●'; font-size: 7px; color: var(--ms-gold); animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+.hero h1 {
+  font-size: clamp(28px, 4vw, 46px); font-weight: 600;
+  color: white; letter-spacing: -.01em; line-height: 1.15;
+  margin-bottom: 8px;
+}
+.hero h1 em { font-style: normal; color: var(--ms-gold); }
+.hero-role {
+  font-size: 16px; color: rgba(255,255,255,.75);
+  margin-bottom: 24px; font-weight: 400;
+}
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.htag {
+  font-size: 12px; font-weight: 600;
+  padding: 4px 12px; border-radius: 12px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.85);
+}
+.htag.gold { background: rgba(255,185,0,.2); border-color: rgba(255,185,0,.35); color: var(--ms-gold); }
+.hero-cta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 20px; border-radius: var(--radius-4);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  text-decoration: none; transition: all .15s;
+  font-family: 'Segoe UI', sans-serif; border: none;
+}
+.btn-primary { background: white; color: var(--ms-blue-dd); }
+.btn-primary:hover { background: var(--ms-neutral-4); }
+.btn-secondary { background: rgba(255,255,255,.12); color: white; border: 1px solid rgba(255,255,255,.25); }
+.btn-secondary:hover { background: rgba(255,255,255,.2); }
+.hero-kpis { display: flex; gap: 32px; flex-wrap: wrap; }
+.kpi { }
+.kpi-num { font-size: 30px; font-weight: 700; color: var(--ms-gold); line-height: 1; }
+.kpi-label { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 2px; }
 
-    nav a {
-      color: #ffcc70;
-      text-decoration: none;
-      font-weight: 600;
-    }
+/* ── MAIN LAYOUT ── */
+.page { max-width: 960px; margin: 0 auto; padding: 28px 20px 64px; }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+/* ── MVP CARD ── */
+.mvp-card {
+  background: white;
+  border: 1px solid var(--ms-blue-l);
+  border-left: 4px solid var(--ms-blue);
+  border-radius: var(--radius-4);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-4);
+  display: block;
+  gap: 20px; align-items: center;
+}
+.mvp-left { }
+.mvp-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  color: var(--ms-blue); text-transform: uppercase; margin-bottom: 4px;
+}
+.mvp-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.mvp-bar-bg { background: var(--ms-neutral-6); border-radius: 2px; height: 4px; margin-bottom: 8px; overflow: hidden; }
+.mvp-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ms-blue), #1a8cff); border-radius: 2px; transition: width 1s; }
+.mvp-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+.mvp-stat { font-size: 12px; color: var(--ms-neutral-60); }
+.mvp-stat b { color: var(--ms-neutral-90); font-weight: 600; }
+.mvp-badge {
+  background: linear-gradient(135deg, var(--ms-blue-dd), var(--ms-blue));
+  border-radius: var(--radius-6); padding: 16px 20px;
+  text-align: center; color: white; min-width: 120px;
+}
+.mvp-badge-icon { font-size: 28px; margin-bottom: 4px; }
+.mvp-badge-text { font-size: 11px; opacity: .7; letter-spacing: .06em; text-transform: uppercase; }
+.mvp-badge-year { font-size: 18px; font-weight: 700; margin-top: 2px; }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-    }
+/* ── SECTION HEADERS ── */
+.section-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--ms-neutral-90);
+}
+.section-title { font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+.section-link { font-size: 13px; color: var(--ms-blue); text-decoration: none; font-weight: 600; }
+.section-link:hover { text-decoration: underline; }
 
-    header {
-      text-align: center;
-      padding: 60px 20px;
-    }
+/* ── CARDS ── */
+.card {
+  background: white; border: 1px solid var(--ms-neutral-6);
+  border-radius: var(--radius-4); box-shadow: var(--shadow-2);
+  overflow: hidden; transition: box-shadow .15s;
+  margin-bottom: 24px;
+}
+.card:hover { box-shadow: var(--shadow-8); }
+.card-body { padding: 20px 24px; }
+.card-body p { font-size: 14px; color: var(--ms-neutral-60); line-height: 1.7; margin-bottom: 10px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-body strong { color: var(--ms-neutral-90); font-weight: 600; }
 
-    header h1 {
-      font-size: 3.2rem;
-      margin-bottom: 10px;
-    }
+/* ── BLOG ARTICLES ── */
+.articles-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 24px; }
+.article-row {
+  background: white; border: 1px solid var(--ms-neutral-6);
+  border-radius: var(--radius-4); padding: 16px 20px;
+  display: grid; grid-template-columns: 48px 1fr auto;
+  gap: 16px; align-items: center;
+  text-decoration: none; color: inherit;
+  transition: all .15s; box-shadow: var(--shadow-2);
+}
+.article-row:hover { box-shadow: var(--shadow-8); transform: translateX(2px); border-left: 3px solid var(--ms-blue); }
+.ar-icon {
+  width: 48px; height: 48px; border-radius: var(--radius-4);
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+  flex-shrink: 0;
+}
+.ar-icon.blue { background: var(--ms-blue-xl); }
+.ar-icon.green { background: var(--ms-green-l); }
+.ar-icon.gold { background: var(--ms-gold-l); }
+.ar-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: .08em;
+  color: var(--ms-blue); text-transform: uppercase; margin-bottom: 3px;
+}
+.ar-title { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 3px; color: var(--ms-neutral-90); }
+.ar-excerpt { font-size: 12px; color: var(--ms-neutral-60); line-height: 1.5; }
+.ar-meta { font-size: 11px; color: var(--ms-neutral-30); margin-top: 4px; }
+.ar-arrow { font-size: 16px; color: var(--ms-neutral-30); }
+.article-row:hover .ar-arrow { color: var(--ms-blue); }
 
-    header span {
-      color: #ffcc70;
-    }
+/* ── SKILLS ── */
+.skills-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+.skill-pill {
+  font-size: 13px; font-weight: 400;
+  padding: 5px 14px; border-radius: 12px;
+  border: 1px solid var(--ms-neutral-8);
+  background: var(--ms-neutral-2); color: var(--ms-neutral-80);
+  transition: all .15s; cursor: default;
+}
+.skill-pill:hover { border-color: var(--ms-blue); color: var(--ms-blue); background: var(--ms-blue-xl); }
+.skill-pill.primary {
+  background: var(--ms-blue-xl); border-color: var(--ms-blue-l);
+  color: var(--ms-blue-dd); font-weight: 600;
+}
 
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
+/* ── PROJECTS ── */
+.proj-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.proj-card {
+  background: white; border: 1px solid var(--ms-neutral-6);
+  border-radius: var(--radius-4); padding: 18px;
+  box-shadow: var(--shadow-2); transition: box-shadow .15s;
+}
+.proj-card:hover { box-shadow: var(--shadow-8); }
+.proj-icon { font-size: 24px; margin-bottom: 10px; }
+.proj-name { font-size: 13px; font-weight: 700; color: var(--ms-neutral-90); margin-bottom: 6px; }
+.proj-desc { font-size: 12px; color: var(--ms-neutral-60); line-height: 1.6; }
+.proj-tag {
+  display: inline-block; margin-top: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: .07em;
+  padding: 2px 8px; border-radius: 10px; text-transform: uppercase;
+}
+.proj-tag.shipped { background: var(--ms-green-l); color: var(--ms-green); }
+.proj-tag.dev { background: var(--ms-gold-l); color: var(--ms-gold-d); }
+.proj-tag.planned { background: var(--ms-neutral-4); color: var(--ms-neutral-60); }
 
-    .cta {
-      margin-top: 25px;
-    }
+/* ── CONTACT ── */
+.contact-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.contact-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: var(--radius-4);
+  border: 1px solid var(--ms-neutral-8); background: white;
+  color: var(--ms-neutral-80); font-size: 13px; font-weight: 600;
+  text-decoration: none; transition: all .15s; box-shadow: var(--shadow-2);
+}
+.contact-btn:hover { border-color: var(--ms-blue); color: var(--ms-blue); box-shadow: var(--shadow-4); }
+.contact-btn.primary { background: var(--ms-blue); color: white; border-color: var(--ms-blue); }
+.contact-btn.primary:hover { background: var(--ms-blue-d); }
 
-    .cta a {
-      display: inline-block;
-      background: #ffcc70;
-      color: #000;
-      padding: 12px 25px;
-      border-radius: 30px;
-      font-weight: bold;
-      text-decoration: none;
-    }
+/* ── RSS NOTICE ── */
+.rss-notice {
+  background: var(--ms-gold-l); border: 1px solid rgba(255,185,0,.3);
+  border-radius: var(--radius-4); padding: 10px 16px;
+  font-size: 13px; color: var(--ms-gold-d);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+}
+.rss-notice a { color: var(--ms-blue); font-weight: 600; text-decoration: none; }
+.rss-notice a:hover { text-decoration: underline; }
 
-    .cta a:hover {
-      opacity: 0.85;
-    }
+/* ── ABOUT CARD ── */
+.about-grid { display: block; gap: 28px; align-items: start; }
+.about-avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--ms-blue-dd), var(--ms-blue));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; color: white; font-weight: 700; flex-shrink: 0;
+}
 
-    section {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 30px;
-      border-radius: 14px;
-      margin-bottom: 35px;
-    }
+/* ── FOOTER ── */
+footer {
+  background: var(--ms-neutral-90); color: rgba(255,255,255,.5);
+  padding: 28px 20px; font-size: 13px; text-align: center;
+}
+footer a { color: rgba(255,255,255,.7); text-decoration: none; }
+footer a:hover { color: white; }
+.footer-inner { max-width: 960px; margin: 0 auto; }
+.footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 10px; flex-wrap: wrap; }
 
-    section h2 {
-      margin-top: 0;
-      color: #ffcc70;
-    }
-
-    ul li {
-      margin-bottom: 8px;
-    }
-
-    footer {
-      text-align: center;
-      margin: 50px 0 20px;
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
+@media(max-width:768px){
+  .proj-grid { grid-template-columns: 1fr 1fr; }
+  .mvp-card { grid-template-columns: 1fr; }
+  .mvp-badge { display: none; }
+  .about-grid { grid-template-columns: 1fr; }
+  .topbar-nav { display: none; }
+  .article-row { grid-template-columns: 40px 1fr; }
+  .ar-arrow { display: none; }
+}
+@media(max-width:480px){ .proj-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
-
 <body>
 
-  <nav>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="articles.html">Articles</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+<!-- TOPBAR -->
+<div class="topbar">
+    <a href="/" class="topbar-brand">Venkateswarrao Vamkathula</a>
+  <nav class="topbar-nav">
+    <a href="#about">About</a>
+    <a href="#articles">Articles</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <a href="https://community.dynamics.com" target="_blank">D365 Community</a>
+    <a href="/feed.xml" class="topbar-rss">📡 RSS</a>
   </nav>
+</div>
 
-  <header>
-    <h1>Hello 👋 I’m <span>Venkat</span></h1>
-    <p>AI Enthusiast | D365 Finance & Operations | Tech Explorer</p>
-
-    <div class="cta">
-      <a href="#contact">Contact Me</a>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    
+    <h1>Venkateswarrao <em>Vamkathula</em></h1>
+    <div class="hero-role">Principal Consultant · D365 F&O Technical Architect · Agentic AI Expert · Lumovy Technology Solutions, Hyderabad</div>
+    <div class="hero-tags">
+      <span class="htag">D365 F&O</span>
+      <span class="htag">X++ / MorphX</span>
+      <span class="htag">Agentic AI</span>
+      <span class="htag">LangGraph</span>
+      <span class="htag">Copilot Studio</span>
+      <span class="htag">Azure OpenAI</span>
+      <span class="htag">MCP Servers</span>
+      <span class="htag gold">15+ Years Experience</span>
     </div>
-  </header>
+    <div class="hero-cta">
+      <a href="#articles" class="btn btn-primary">📝 Read Articles</a>
+      <a href="#contact" class="btn btn-secondary">Connect on LinkedIn →</a>
+    </div>
+    <div class="hero-kpis">
+      <div class="kpi"><div class="kpi-num">15+</div><div class="kpi-label">Years D365 F&O</div></div>
+      <div class="kpi"><div class="kpi-num">3</div><div class="kpi-label">Published Articles</div></div>
+      <div class="kpi"><div class="kpi-num">6</div><div class="kpi-label">AI Products Built</div></div>
 
-  <div class="container">
+    </div>
+  </div>
+</div>
 
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        I’m a D365 Finance & Operations Technical Lead exploring Artificial Intelligence
-        and automation. I love building intelligent tools that simplify work and
-        improve business efficiency.
-      </p>
-    </section>
+<!-- PAGE -->
+<div class="page">
 
-    <section id="skills">
-      <h2>Skills</h2>
-      <ul>
-        <li>D365 Finance & Operations (X++, Integrations)</li>
-        <li>AI & LLM Concepts</li>
-        <li>Python (Growing)</li>
-        <li>Azure & Automation</li>
-        <li>GitHub & DevOps</li>
-      </ul>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <ul>
-        <li>🤖 AI-based Excel validation & import for D365FO</li>
-        <li>📊 Smart summaries & reporting using LLMs</li>
-        <li>🧠 Personal AI assistant for work & finance tracking</li>
-        <li>🍽️ Food business automation ideas</li>
-      </ul>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>
-        📧 Email: <a href="mailto:yourmail@example.com" style="color:#ffcc70;">yourmail@example.com</a><br><br>
-        💼 GitHub: <a href="https://github.com/vamkathula-ai" target="_blank" style="color:#ffcc70;">vamkathula-ai</a>
-      </p>
-    </section>
+  <!-- MVP CARD -->
+  <div class="mvp-card">
+    <div class="mvp-left">
+      <div class="mvp-label">🏆 Microsoft MVP Journey — Live Progress</div>
+      <div class="mvp-title">Business Applications · D365 F&O + Agentic AI</div>
+      <div class="mvp-bar-bg"><div class="mvp-bar-fill" id="mvp-fill" style="width:8%"></div></div>
+      <div class="mvp-stats">
+        <div class="mvp-stat">Forum answers: <b id="s-forum">2</b>/100</div>
+        <div class="mvp-stat">Blog posts: <b id="s-blog">3</b>/24</div>
+        <div class="mvp-stat">Streak: <b id="s-streak">1</b> days 🔥</div>
+        <div class="mvp-stat">Started: <b>28 Mar 2026</b></div>
+        <div class="mvp-stat">Nomination: <b>April 2027</b></div>
+      </div>
+    </div>
 
   </div>
 
-  <footer>
-    © 2026 Venkat • Built with ❤️ on GitHub Pages
-  </footer>
+  <!-- ABOUT -->
+  <div class="section-hdr"><div class="section-title">About</div></div>
+  <div class="card" style="margin-bottom:24px;" id="about">
+    <div class="card-body">
+      <div class="about-grid">
+        <div>
+          <p>Principal Consultant and Technical Architect at <strong>Lumovy Technology Solutions</strong>, Hyderabad, with 15+ years of hands-on expertise in Microsoft Dynamics 365 Finance & Operations and X++ development.</p>
+          <p>My career spans full-cycle ERP implementations, complex integrations, and performance optimization across manufacturing, distribution, and financial services industries. Today I'm pioneering <strong>Agentic AI for enterprise ERP</strong> — building production AI agents that transform how D365 F&O systems think, decide, and act autonomously.</p>
+          <p>Pursuing <strong>Microsoft MVP — Business Applications</strong>, with nomination from Fernando Tudela Desantes (D365 F&O MVP, Lumovy Technology Solutions, Spain).</p>
+          <div class="contact-links" style="margin-top:14px;">
+            <a href="https://linkedin.com/in/venkateswarrao-vamkathula" target="_blank" class="contact-btn primary">LinkedIn</a>
+            <a href="https://community.dynamics.com" target="_blank" class="contact-btn">D365 Community</a>
+            <a href="https://github.com/venkateswarrao-ai" target="_blank" class="contact-btn">GitHub</a>
+          </div>
+        </div>
+        <div class="about-avatar">V</div>
+      </div>
+    </div>
+  </div>
 
-</body>
-</html>
+  <!-- ARTICLES -->
+  <div class="section-hdr" id="articles">
+    <div class="section-title">Technical Articles</div>
+    <a href="/feed.xml" class="section-link">RSS Feed →</a>
+  </div>
+  <div class="rss-notice">
+    📡 Also published on <a href="https://community.dynamics.com" target="_blank">community.dynamics.com</a>
+    &nbsp;·&nbsp; <a href="/feed.xml">Subscribe via RSS feed</a>
+  </div>
+  <div class="articles-list">
+    <a href="/posts/xpp-bug-analyzer.html" class="article-row">
+      <div class="ar-icon blue">🔍</div>
+      <div>
+        <div class="ar-tag">X++ · Agentic AI · D365 F&O</div>
+        <div class="ar-title">How I Built an AI-Powered X++ Bug Analyzer for D365 F&O</div>
+        <div class="ar-excerpt">Reduced code review from 4 hours to 90 seconds. Catches missing ttsBegin/ttsCommit blocks, N+1 query patterns, and Chain of Command violations automatically before deployment.</div>
+        <div class="ar-meta">28 Mar 2026 &nbsp;·&nbsp; 8 min read &nbsp;·&nbsp; community.dynamics.com</div>
+      </div>
+      <div class="ar-arrow">›</div>
+    </a>
+    <a href="/posts/langgraph-d365.html" class="article-row">
+      <div class="ar-icon blue">🤖</div>
+      <div>
+        <div class="ar-tag">Agentic AI · LangGraph · Architecture</div>
+        <div class="ar-title">Building Agentic AI Workflows for D365 F&O Using LangGraph and Azure OpenAI</div>
+        <div class="ar-excerpt">Multi-agent ERP automation using LangGraph + Azure OpenAI + FastAPI. Production deployment reduced stockouts by 87% and saved 4 hours/day for procurement teams.</div>
+        <div class="ar-meta">28 Mar 2026 &nbsp;·&nbsp; 7 min read &nbsp;·&nbsp; community.dynamics.com</div>
+      </div>
+      <div class="ar-arrow">›</div>
+    </a>
+    <a href="/posts/dead-stock-copilot.html" class="article-row">
+      <div class="ar-icon green">📦</div>
+      <div>
+        <div class="ar-tag">Copilot Studio · SCM · OData APIs</div>
+        <div class="ar-title">Dead Stock Detection in D365 F&O Using Copilot Studio and OData APIs</div>
+        <div class="ar-excerpt">Identified €2.1M in dead stock in the first scan. Proactive inventory intelligence using Copilot Studio + D365 F&O OData — zero custom X++ code required.</div>
+        <div class="ar-meta">28 Mar 2026 &nbsp;·&nbsp; 6 min read &nbsp;·&nbsp; community.dynamics.com</div>
+      </div>
+      <div class="ar-arrow">›</div>
+    </a>
+  </div>
 
+  <!-- SKILLS -->
+  <div class="section-hdr" style="margin-top:32px;"><div class="section-title">Skills & Expertise</div></div>
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-body">
+      <div class="skills-grid">
+        <span class="skill-pill primary">D365 F&O</span>
+        <span class="skill-pill primary">X++ / MorphX</span>
+        <span class="skill-pill primary">Agentic AI</span>
+        <span class="skill-pill primary">LangGraph</span>
+        <span class="skill-pill primary">Copilot Studio</span>
+        <span class="skill-pill primary">Azure OpenAI</span>
+        <span class="skill-pill primary">MCP Servers</span>
+        <span class="skill-pill">FastAPI / Python</span>
+        <span class="skill-pill">OData V4 APIs</span>
+        <span class="skill-pill">Chain of Command</span>
+        <span class="skill-pill">Power Platform</span>
+        <span class="skill-pill">Azure Service Bus</span>
+        <span class="skill-pill">D365 Finance</span>
+        <span class="skill-pill">D365 SCM</span>
+        <span class="skill-pill">GitHub / DevOps</span>
+        <span class="skill-pill">Azure AD OAuth</span>
+      </div>
+    </div>
+  </div>
 
+  <!-- PROJECTS -->
+  <div class="section-hdr" id="projects"><div class="section-title">AI Projects</div></div>
+  <div class="proj-grid" style="margin-bottom:24px;">
+    <div class="proj-card">
+      <div class="proj-icon">🔍</div>
+      <div class="proj-name">X++ AI Bug Analyzer</div>
+      <div class="proj-desc">Claude AI-powered X++ code review. 94% bug catch rate before deployment. VS Code extension.</div>
+      <span class="proj-tag shipped">Shipped</span>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">🤖</div>
+      <div class="proj-name">D365 Agentic Workflow Engine</div>
+      <div class="proj-desc">LangGraph multi-agent system for autonomous D365 F&O business process automation.</div>
+      <span class="proj-tag shipped">Shipped</span>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">📦</div>
+      <div class="proj-name">Dead Stock Intelligence Agent</div>
+      <div class="proj-desc">Copilot Studio + OData. Identified €2.1M dead stock. Automated warehouse manager alerts.</div>
+      <span class="proj-tag shipped">Shipped</span>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">🧠</div>
+      <div class="proj-name">MVP Community Agent</div>
+      <div class="proj-desc">Autonomous agent scraping D365 forum questions, drafting expert answers, tracking MVP progress.</div>
+      <span class="proj-tag dev">In Dev</span>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">📊</div>
+      <div class="proj-name">AI Excel Validator for D365</div>
+      <div class="proj-desc">LLM-powered data quality validation before D365 F&O batch import operations.</div>
+      <span class="proj-tag shipped">Shipped</span>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">🔌</div>
+      <div class="proj-name">MCP Server for D365 F&O</div>
+      <div class="proj-desc">Model Context Protocol server connecting Claude AI directly to D365 F&O via Azure AD OAuth.</div>
+      <span class="proj-tag dev">In Dev</span>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section-hdr" id="contact"><div class="section-title">Contact</div></div>
+  <div class="card">
+    <div class="card-body">
+      <p>I write about D365 F&O development, X++ patterns, and Agentic AI for enterprise ERP. Every article is based on real production experience — not theory. If you're building on D365 F&O or exploring AI automation for ERP, I'd love to connect.</p>
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/venkateswarrao-vamkathula" target="_blank" class="contact-btn primary">💼 LinkedIn</a>
+        <a href="https://community.dynamics.com" target="_blank" class="contact-btn">🏢 D365 Community</a>
+        <a href="https://github.com/venkateswarrao-ai" target="_blank" class="contact-btn">🐙 GitHub</a>
+        <a href="/feed.xml" class="contact-btn">📡 RSS Feed</a>
+        <a href="/cdn-cgi/l/email-protection#3442515a5f5540514743554646555b745841595b424d1a575b59" class="contact-btn">📧 Email</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="#articles">Articles</a>
+      <a href="https://community.dynamics.com" target="_blank">D365 Community</a>
+      <a href="https://linkedin.com/in/venkateswarrao-vamkathula" target="_blank">LinkedIn</a>
+      <a href="https://github.com/venkateswarrao-ai" target="_blank">GitHub</a>
+      <a href="/feed.xml">RSS</a>
+    </div>
+    <div>© 2026 Venkateswarrao Vamkathula &nbsp;·&nbsp; D365 F&O + Agentic AI &nbsp;·&nbsp; Hyderabad, India</div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  try {
+    const S = JSON.parse(localStorage.getItem('mvp_brain_v1') || '{}');
+    if(S.forum) document.getElementById('s-forum').textContent = S.forum;
+    if(S.blog) document.getElementById('s-blog').textContent = S.blog;
+    if(S.streak) document.getElementById('s-streak').textContent = S.streak;
+    const pct = Math.round(
+      Math.min((S.forum||2)/100,1)*30 +
+      Math.min((S.blog||3)/24,1)*25 +
+      M
